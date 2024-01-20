@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Tableau de bord</h1>
+    
+    <form method="POST" action="/dashboard">
+        <label for="selected_user">Sélectionner l'ID :</label>
+        <select name="selected_user" id="selected_user">
+            {% for user in users %}
+                <option value="{{ user }}" {% if user == selected_user %}selected{% endif %}>{{ user }}</option>
+            {% endfor %}
+        </select>
 
+        <label for="selected_data_type">Sélectionner le type de données :</label>
+        <select name="selected_data_type" id="selected_data_type">
+            {% for data_type in data_types %}
+                <option value="{{ data_type }}" {% if data_type == selected_data_type %}selected{% endif %}>{{ data_type }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Afficher le graphique</button>
+    </form>
+
+    {% if graph_html %}
+        <div>{{ graph_html|safe }}</div>
+    {% endif %}
+</body>
+</html>
